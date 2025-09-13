@@ -1,7 +1,7 @@
 // Google Drive API service to fetch videos from folders
 // This will require Google Drive API key and folder sharing configuration
 
-const GOOGLE_DRIVE_API_KEY = process.env.REACT_APP_GOOGLE_DRIVE_API_KEY || ''
+const GOOGLE_DRIVE_API_KEY = import.meta.env.VITE_GOOGLE_DRIVE_API_KEY || ''
 
 // For demo purposes, returning mock data. 
 // In production, you'll need to:
@@ -80,7 +80,7 @@ export async function fetchVideosFromDrive(teacherName) {
       `https://drive.google.com/file/d/${file.id}/preview`
     )
     */
-    
+
   } catch (error) {
     console.error('Error fetching videos from Drive:', error)
     throw error

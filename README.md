@@ -25,6 +25,7 @@ A beautiful React web application to honor your computer engineering teachers wi
 ## Quick Start
 
 1. **Clone and Install**
+
    ```bash
    git clone <your-repo-url>
    cd graduation-teachers-tribute
@@ -32,6 +33,7 @@ A beautiful React web application to honor your computer engineering teachers wi
    ```
 
 2. **Development Mode**
+
    ```bash
    npm run dev
    ```
@@ -56,6 +58,7 @@ To enable dynamic video loading from Google Drive:
 ### 2. Set Up Drive Folders
 
 1. Create a folder for each teacher with their exact name (case-insensitive):
+
    - `cleo`
    - `pedro`
    - `dalmazo`
@@ -75,8 +78,10 @@ To enable dynamic video loading from Google Drive:
 Create a `.env` file in the project root:
 
 ```env
-REACT_APP_GOOGLE_DRIVE_API_KEY=your_api_key_here
+VITE_GOOGLE_DRIVE_API_KEY=your_api_key_here
 ```
+
+Note: Vite requires environment variables to start with `VITE_` prefix to be accessible in the application.
 
 ### 4. Update the Drive Service
 
@@ -124,6 +129,7 @@ src/
 ### Video Format Support
 
 The application supports any video format that Google Drive can preview in embed mode:
+
 - MP4 (recommended)
 - MOV
 - AVI
@@ -157,12 +163,14 @@ The application supports any video format that Google Drive can preview in embed
 ## Troubleshooting
 
 ### Videos Not Loading
+
 - Check Google Drive folder permissions
 - Verify API key is correct
 - Ensure folder names match teacher names exactly
 - Check browser console for error messages
 
 ### Responsive Issues
+
 - Test on multiple devices
 - Check CSS media queries
 - Verify viewport meta tag in index.html
