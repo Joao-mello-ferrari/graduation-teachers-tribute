@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import DriveApiTest from '../components/DriveApiTest'
 import './HomePage.css'
 
 const teachers = [
@@ -6,7 +7,7 @@ const teachers = [
   'Pedro', 
   'Dalmazo',
   'Bicho',
-  'Victor',
+  'Vitor',
   'Berri',
   'André',
   'Schvittz'
@@ -32,6 +33,8 @@ function HomePage() {
           </Link>
         ))}
       </div>
+      
+      <DriveApiTest />
     </div>
   )
 }

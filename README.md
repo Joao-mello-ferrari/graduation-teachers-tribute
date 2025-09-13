@@ -57,18 +57,19 @@ To enable dynamic video loading from Google Drive:
 
 ### 2. Set Up Drive Folders
 
-1. Create a folder for each teacher with their exact name (case-insensitive):
+1. Create a root folder in your Google Drive for all teachers
+2. Inside the root folder, create a folder for each teacher with their exact name (case-insensitive):
 
    - `cleo`
    - `pedro`
    - `dalmazo`
    - `bicho`
-   - `victor`
+   - `vitor`
    - `berri`
    - `andré`
    - `schvittz`
 
-2. Make folders publicly accessible:
+3. Make folders publicly accessible:
    - Right-click folder → Share
    - Change to "Anyone with the link"
    - Set permission to "Viewer"
@@ -79,6 +80,7 @@ Create a `.env` file in the project root:
 
 ```env
 VITE_GOOGLE_DRIVE_API_KEY=your_api_key_here
+VITE_DRIVE_ROOT_FOLDER_ID=your_root_folder_id_here
 ```
 
 Note: Vite requires environment variables to start with `VITE_` prefix to be accessible in the application.
