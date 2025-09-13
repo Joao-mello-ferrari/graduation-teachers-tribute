@@ -37,14 +37,21 @@ function VideoCarousel({ videos, teacherName }) {
       </div>
 
       <div className="video-container">
-        <iframe
+        <video
           src={videos[currentVideoIndex]}
           title={`Tribute video ${currentVideoIndex + 1} for ${teacherName}`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="video-iframe"
-        ></iframe>
+          controls
+          className="video-player"
+          onLoadStart={() => setIsPlaying(false)}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          onEnded={() => setIsPlaying(false)}
+        >
+          Your browser does not support the video tag.
+          <a href={videos[currentVideoIndex]} target="_blank" rel="noopener noreferrer">
+            Download video
+          </a>
+        </video>
       </div>
 
       {videos.length > 1 && (

@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import VideoCarousel from '../components/VideoCarousel'
-import { fetchVideosFromDrive } from '../services/driveService'
+import { fetchVideosFromS3 } from '../services/s3Service'
 import './TeacherTribute.css'
 
 function TeacherTribute() {
@@ -14,7 +14,7 @@ function TeacherTribute() {
     const loadVideos = async () => {
       try {
         setLoading(true)
-        const videoUrls = await fetchVideosFromDrive(teacherName)
+        const videoUrls = await fetchVideosFromS3(teacherName)
         setVideos(videoUrls)
       } catch (err) {
         setError(`Failed to load videos for ${teacherName}`)
@@ -47,14 +47,14 @@ function TeacherTribute() {
         {error && (
           <div className="error">
             <p>{error}</p>
-            <p>Please make sure videos are uploaded to the Google Drive folder named "{teacherName}"</p>
+            <p>Please make sure videos are uploaded to the S3 folder: s3://graduation-teachers-tribute/{teacherName}/</p>
           </div>
         )}
         
         {!loading && !error && videos.length === 0 && (
           <div className="no-videos">
             <p>No videos found for Professor {capitalizedName}</p>
-            <p>Videos should be uploaded to the Google Drive folder named "{teacherName}"</p>
+            <p>Videos should be uploaded to: s3://graduation-teachers-tribute/{teacherName}/</p>
           </div>
         )}
         

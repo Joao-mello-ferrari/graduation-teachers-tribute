@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import DriveApiTest from '../components/DriveApiTest'
+import S3ApiTest from '../components/S3ApiTest'
 import './HomePage.css'
 
 const teachers = [
@@ -34,7 +34,7 @@ function HomePage() {
         ))}
       </div>
       
-      <DriveApiTest />
+      <S3ApiTest />
     </div>
   )
 }
