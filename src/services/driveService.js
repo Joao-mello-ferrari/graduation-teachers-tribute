@@ -19,16 +19,17 @@ export async function fetchVideosFromDrive(teacherName) {
     console.log(`Fetching videos for teacher: ${teacherName}`)
 
     // 1. Search for teacher folder inside the root folder
-    const folderSearchUrl = `https://www.googleapis.com/drive/v3/files?q=name='${teacherName.toLowerCase()}' and '${DRIVE_ROOT_FOLDER_ID}' in parents and mimeType='application/vnd.google-apps.folder'&key=${GOOGLE_DRIVE_API_KEY}`
-    
+    //const folderSearchUrl = `https://www.googleapis.com/drive/v3/files?q=name='${teacherName.toLowerCase()}' and '${DRIVE_ROOT_FOLDER_ID}' in parents and mimeType='application/vnd.google-apps.folder'&key=${GOOGLE_DRIVE_API_KEY}`
+    const folderSearchUrl = `https://www.googleapis.com/drive/v3/files?q=name='${teacherName.toLowerCase()}' and mimeType='application/vnd.google-apps.folder'&key=${GOOGLE_DRIVE_API_KEY}`
+
     const folderResponse = await fetch(folderSearchUrl)
-    
+
     if (!folderResponse.ok) {
       throw new Error(`HTTP error! status: ${folderResponse.status}`)
     }
-    
+
     const folderData = await folderResponse.json()
-    
+
     if (!folderData.files || folderData.files.length === 0) {
       console.log(`No folder found for teacher: ${teacherName}`)
       return []
@@ -39,15 +40,15 @@ export async function fetchVideosFromDrive(teacherName) {
 
     // 2. Get all video files from the teacher's folder
     const videoSearchUrl = `https://www.googleapis.com/drive/v3/files?q='${teacherFolderId}' in parents and (mimeType contains 'video/' or mimeType='application/vnd.google-apps.video')&key=${GOOGLE_DRIVE_API_KEY}`
-    
+
     const videoResponse = await fetch(videoSearchUrl)
-    
+
     if (!videoResponse.ok) {
       throw new Error(`HTTP error! status: ${videoResponse.status}`)
     }
-    
+
     const videoData = await videoResponse.json()
-    
+
     if (!videoData.files || videoData.files.length === 0) {
       console.log(`No videos found in folder for teacher: ${teacherName}`)
       return []
@@ -56,7 +57,7 @@ export async function fetchVideosFromDrive(teacherName) {
     console.log(`Found ${videoData.files.length} videos for ${teacherName}`)
 
     // 3. Convert file IDs to embeddable URLs
-    const videoUrls = videoData.files.map(file => 
+    const videoUrls = videoData.files.map(file =>
       `https://drive.google.com/file/d/${file.id}/preview`
     )
 
@@ -64,7 +65,7 @@ export async function fetchVideosFromDrive(teacherName) {
 
   } catch (error) {
     console.error('Error fetching videos from Drive:', error)
-    
+
     // Fallback to mock data on error
     console.log('Falling back to mock data due to error')
     return getMockVideos(teacherName)
@@ -130,7 +131,7 @@ export async function testDriveConnection() {
 
     const testUrl = `https://www.googleapis.com/drive/v3/files/${DRIVE_ROOT_FOLDER_ID}?key=${GOOGLE_DRIVE_API_KEY}`
     const response = await fetch(testUrl)
-    
+
     if (response.ok) {
       return { success: true, message: 'Drive API connection successful' }
     } else {
