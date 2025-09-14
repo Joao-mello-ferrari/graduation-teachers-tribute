@@ -202,7 +202,7 @@ export async function uploadVideoToS3(file, teacherName, onProgress = null) {
 
     // Upload the file
     const result = await client.send(command)
-    
+
     const publicUrl = getS3PublicUrl(key)
     console.log(`Successfully uploaded video: ${publicUrl}`)
 
@@ -216,7 +216,7 @@ export async function uploadVideoToS3(file, teacherName, onProgress = null) {
 
   } catch (error) {
     console.error('Error uploading video to S3:', error)
-    
+
     // Provide specific error messages
     if (error.name === 'AccessDenied') {
       throw new Error('Access denied. Check S3 bucket permissions for uploads.')

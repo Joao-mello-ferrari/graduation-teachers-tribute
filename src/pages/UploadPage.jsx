@@ -1,6 +1,36 @@
-import React, { useState } from 'react'
-import { uploadVideoToS3 } from '../services/s3Service'
-import './UploadPage.css'
+import React, { useState, useRef } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  LinearProgress,
+  Alert,
+  Card,
+  CardContent,
+  IconButton,
+  AppBar,
+  Toolbar,
+  Chip,
+  Stack,
+  Divider,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SchoolIcon from '@mui/icons-material/School';
+import { uploadVideoToS3 } from '../services/s3Service';
+import ThemeToggle from '../components/ThemeToggle';
 
 const TEACHERS = [
   { name: 'cleo', displayName: 'Prof. Cleo' },
@@ -11,222 +41,362 @@ const TEACHERS = [
   { name: 'berri', displayName: 'Prof. Berri' },
   { name: 'andre', displayName: 'Prof. André' },
   { name: 'schvittz', displayName: 'Prof. Schvittz' }
-]
+];
+
+const UploadArea = styled(Paper)(({ theme, isDragOver, hasFile }) => ({
+  border: `2px dashed ${isDragOver ? theme.palette.primary.main : theme.palette.divider}`,
+  borderRadius: theme.shape.borderRadius * 2,
+  padding: theme.spacing(4),
+  textAlign: 'center',
+  backgroundColor: isDragOver ? theme.palette.action.hover : 'transparent',
+  transition: 'all 0.3s ease',
+  cursor: hasFile ? 'default' : 'pointer',
+  '&:hover': {
+    borderColor: hasFile ? theme.palette.divider : theme.palette.primary.main,
+    backgroundColor: hasFile ? 'transparent' : theme.palette.action.hover,
+  },
+}));
+
+const FileCard = styled(Card)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(2),
+  marginBottom: theme.spacing(2),
+}));
+
+const HiddenInput = styled('input')({
+  display: 'none',
+});
 
 function UploadPage() {
-  const [selectedTeacher, setSelectedTeacher] = useState('')
-  const [selectedFile, setSelectedFile] = useState(null)
-  const [uploading, setUploading] = useState(false)
-  const [uploadProgress, setUploadProgress] = useState(0)
-  const [uploadResult, setUploadResult] = useState(null)
-  const [error, setError] = useState(null)
-  const [dragOver, setDragOver] = useState(false)
+  const [selectedTeacher, setSelectedTeacher] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadResult, setUploadResult] = useState(null);
+  const [error, setError] = useState(null);
+  const [dragOver, setDragOver] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleFileSelect = (file) => {
-    if (file && file.type.startsWith('video/')) {
-      setSelectedFile(file)
-      setError(null)
-    } else {
-      setError('Please select a valid video file')
+    if (!file) {
+      setError('Nenhum arquivo selecionado');
+      return;
     }
-  }
+    
+    if (!file.type.startsWith('video/')) {
+      setError('Por favor, selecione um arquivo de vídeo válido');
+      return;
+    }
+    
+    // Check file size (30MB limit)
+    const maxSize = 30 * 1024 * 1024; // 30MB in bytes
+    if (file.size > maxSize) {
+      setError('O arquivo é muito grande. O tamanho máximo permitido é 30MB');
+      return;
+    }
+    
+    setSelectedFile(file);
+    setError(null);
+  };
 
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0]
-    handleFileSelect(file)
-  }
+    const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      handleFileSelect(file);
+    }
+  };
+
+  const handleFileButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   const handleDrop = (event) => {
-    event.preventDefault()
-    setDragOver(false)
-    const file = event.dataTransfer.files[0]
-    handleFileSelect(file)
-  }
+    event.preventDefault();
+    setDragOver(false);
+    const file = event.dataTransfer.files[0];
+    handleFileSelect(file);
+  };
 
   const handleDragOver = (event) => {
-    event.preventDefault()
-    setDragOver(true)
-  }
+    event.preventDefault();
+    setDragOver(true);
+  };
 
   const handleDragLeave = (event) => {
-    event.preventDefault()
-    setDragOver(false)
-  }
+    event.preventDefault();
+    setDragOver(false);
+  };
 
   const handleUpload = async () => {
     if (!selectedFile || !selectedTeacher) {
-      setError('Please select a teacher and a video file')
-      return
+      setError('Por favor, selecione um professor e um arquivo de vídeo');
+      return;
     }
 
-    setUploading(true)
-    setUploadProgress(0)
-    setError(null)
-    setUploadResult(null)
+    setUploading(true);
+    setUploadProgress(0);
+    setError(null);
+    setUploadResult(null);
 
     try {
       // Simulate progress for better UX
       const progressInterval = setInterval(() => {
         setUploadProgress(prev => {
-          if (prev < 90) return prev + 10
-          return prev
-        })
-      }, 200)
+          if (prev < 100) return prev + 1;
+          return prev;
+        });
+      }, 200);
 
-      const result = await uploadVideoToS3(selectedFile, selectedTeacher)
+      const result = await uploadVideoToS3(selectedFile, selectedTeacher);
       
-      clearInterval(progressInterval)
-      setUploadProgress(100)
+      await new Promise((res)=>{
+        const progressInterval2 = setInterval(() => {
+        setUploadProgress(prev => {
+          if (prev < 100) return prev + 1;
+          if (prev >= 100) {
+            clearInterval(progressInterval2);
+            res();
+          }
+          return prev;
+        });
+      }, 10);
+      });
+
+      clearInterval(progressInterval);
+      setUploadProgress(100);
       
-      setUploadResult(result)
+      setUploadResult(result);
       
-      // Reset form after successful upload
-      setTimeout(() => {
-        setSelectedFile(null)
-        setSelectedTeacher('')
-        setUploadProgress(0)
-        setUploadResult(null)
-      }, 3000)
+      // Don't auto-reset - let user manually clear
 
     } catch (err) {
-      setError(err.message)
-      setUploadProgress(0)
+      setError(err.message);
+      setUploadProgress(0);
     } finally {
-      setUploading(false)
+      setUploading(false);
     }
-  }
+  };
 
   const resetForm = () => {
-    setSelectedFile(null)
-    setSelectedTeacher('')
-    setError(null)
-    setUploadResult(null)
-    setUploadProgress(0)
-  }
+    setSelectedFile(null);
+    setSelectedTeacher('');
+    setError(null);
+    setUploadResult(null);
+    setUploadProgress(0);
+  };
+
+  const formatFileSize = (bytes) => {
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+  };
 
   return (
-    <div className="upload-page">
-      <div className="upload-container">
-        <div className="upload-header">
-          <h1>📹 Upload Tribute Video</h1>
-          <p>Share a special message for one of our amazing teachers</p>
-        </div>
+    <Box sx={{ flexGrow: 1 }}>
+      {/* App Bar */}
+      <AppBar position="static" elevation={0}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            component={RouterLink}
+            to="/"
+            sx={{ mr: 2 }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <SchoolIcon sx={{ mr: 2 }} />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Enviar Vídeo de Homenagem
+          </Typography>
+          <ThemeToggle />
+        </Toolbar>
+      </AppBar>
 
-        <div className="upload-form">
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        {/* Header */}
+        <Box textAlign="center" sx={{ mb: 4 }}>
+          <VideoLibraryIcon sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+          <Typography variant="h3" component="h1" gutterBottom>
+            Enviar Vídeo de Homenagem
+          </Typography>
+          <Typography variant="h6" color="text.secondary">
+            Compartilhe uma mensagem especial para um dos nossos professores incríveis
+          </Typography>
+        </Box>
+
+        <Paper elevation={2} sx={{ p: 4 }}>
           {/* Teacher Selection */}
-          <div className="form-group">
-            <label htmlFor="teacher-select">Select Teacher:</label>
-            <select
-              id="teacher-select"
+          <FormControl fullWidth sx={{ mb: 3 }}>
+            <InputLabel id="teacher-select-label">Selecionar Professor</InputLabel>
+            <Select
+              labelId="teacher-select-label"
               value={selectedTeacher}
+              label="Selecionar Professor"
               onChange={(e) => setSelectedTeacher(e.target.value)}
-              className="teacher-select"
             >
-              <option value="">Choose a teacher...</option>
               {TEACHERS.map(teacher => (
-                <option key={teacher.name} value={teacher.name}>
+                <MenuItem key={teacher.name} value={teacher.name}>
                   {teacher.displayName}
-                </option>
+                </MenuItem>
               ))}
-            </select>
-          </div>
+            </Select>
+          </FormControl>
 
           {/* File Upload Area */}
-          <div 
-            className={`file-upload-area ${dragOver ? 'drag-over' : ''} ${selectedFile ? 'has-file' : ''}`}
+          <UploadArea
+            isDragOver={dragOver}
+            hasFile={!!selectedFile}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
+            onClick={() => !selectedFile && document.getElementById('file-input')?.click()}
           >
             {selectedFile ? (
-              <div className="file-selected">
-                <div className="file-icon">🎬</div>
-                <div className="file-info">
-                  <div className="file-name">{selectedFile.name}</div>
-                  <div className="file-size">
-                    {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
-                  </div>
-                </div>
-                <button 
-                  type="button" 
-                  className="remove-file-btn"
-                  onClick={() => setSelectedFile(null)}
+              <FileCard elevation={1}>
+                <VideoLibraryIcon sx={{ mr: 2, fontSize: 40, color: 'primary.main' }} />
+                <Box sx={{ flexGrow: 1, textAlign: 'left' }}>
+                  <Typography variant="h6">{selectedFile.name}</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {formatFileSize(selectedFile.size)}
+                  </Typography>
+                </Box>
+                <IconButton
+                  color="error"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedFile(null);
+                  }}
                 >
-                  ✕
-                </button>
-              </div>
+                  <DeleteIcon />
+                </IconButton>
+              </FileCard>
             ) : (
-              <div className="file-upload-prompt">
-                <div className="upload-icon">📤</div>
-                <p>Drag and drop your video here, or</p>
-                <label htmlFor="file-input" className="file-input-label">
-                  Choose File
-                </label>
-                <input
-                  id="file-input"
+              <Box>
+                <CloudUploadIcon sx={{ fontSize: 80, color: 'primary.main', mb: 2 }} />
+                <Typography variant="h6" gutterBottom>
+                  Arraste e solte seu vídeo aqui
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                  ou
+                </Typography>
+                <Button variant="outlined" onClick={handleFileButtonClick} size="large">
+                  Escolher Arquivo
+                </Button>
+                <HiddenInput
+                  ref={fileInputRef}
                   type="file"
                   accept="video/*"
                   onChange={handleFileInputChange}
-                  className="file-input"
                 />
-                <p className="file-hint">Supported formats: MP4, MOV, AVI, etc.</p>
-              </div>
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                  Formatos suportados: MP4, MOV, AVI, etc.
+                </Typography>
+              </Box>
             )}
-          </div>
+          </UploadArea>
 
           {/* Upload Progress */}
           {uploading && (
-            <div className="upload-progress">
-              <div className="progress-bar">
-                <div 
-                  className="progress-fill"
-                  style={{ width: `${uploadProgress}%` }}
-                ></div>
-              </div>
-              <p>Uploading... {uploadProgress}%</p>
-            </div>
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="body1" gutterBottom>
+                Enviando... {uploadProgress}%
+              </Typography>
+              <LinearProgress variant="determinate" value={uploadProgress} sx={{ height: 8, borderRadius: 4 }} />
+            </Box>
           )}
 
           {/* Upload Button */}
-          <button
-            className="upload-btn"
+          <Button
+            variant="contained"
+            size="large"
+            fullWidth
             onClick={handleUpload}
             disabled={!selectedFile || !selectedTeacher || uploading}
+            sx={{ mt: 3, py: 1.5 }}
+            startIcon={uploading ? undefined : <CloudUploadIcon />}
           >
-            {uploading ? 'Uploading...' : 'Upload Video'}
-          </button>
+            {uploading ? 'Enviando...' : 'Enviar Vídeo'}
+          </Button>
 
           {/* Success Message */}
           {uploadResult && (
-            <div className="upload-success">
-              <div className="success-icon">✅</div>
-              <h3>Upload Successful!</h3>
-              <p>Your tribute video for <strong>{TEACHERS.find(t => t.name === uploadResult.teacher)?.displayName}</strong> has been uploaded successfully.</p>
-              <div className="success-details">
-                <p><strong>File:</strong> {uploadResult.fileName}</p>
-                <p><strong>Video URL:</strong> <a href={uploadResult.url} target="_blank" rel="noopener noreferrer">View Video</a></p>
-              </div>
-            </div>
+            <Alert
+              severity="success"
+              icon={<CheckCircleIcon />}
+              sx={{ mt: 3 }}
+            >
+              <Typography variant="h6" gutterBottom>
+                Upload Realizado com Sucesso!
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 1 }}>
+                Seu vídeo de homenagem para <strong>{TEACHERS.find(t => t.name === uploadResult.teacher)?.displayName}</strong> foi enviado com sucesso.
+              </Typography>
+              <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                <Chip label={`Arquivo: ${uploadResult.fileName}`} size="small" />
+                <Chip 
+                  label="Baixar Vídeo" 
+                  size="small" 
+                  clickable 
+                  component="a" 
+                  href={uploadResult.url} 
+                  target="_blank" 
+                />
+              </Stack>
+              <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={resetForm}
+                >
+                  Enviar Outro Vídeo
+                </Button>
+              </Stack>
+            </Alert>
           )}
 
           {/* Error Message */}
           {error && (
-            <div className="upload-error">
-              <div className="error-icon">❌</div>
-              <h3>Upload Failed</h3>
-              <p>{error}</p>
-              <button onClick={resetForm} className="retry-btn">Try Again</button>
-            </div>
+            <Alert
+              severity="error"
+              icon={<ErrorIcon />}
+              action={
+                <Button color="inherit" size="small" onClick={resetForm}>
+                  Tentar Novamente
+                </Button>
+              }
+              sx={{ mt: 3 }}
+            >
+              <Typography variant="h6" gutterBottom>
+                Upload Failed
+              </Typography>
+              <Typography variant="body1">{error}</Typography>
+            </Alert>
           )}
-        </div>
+        </Paper>
 
-        <div className="upload-footer">
-          <p>💡 <strong>Tip:</strong> Keep your video under 50MB for faster uploads</p>
-          <p>🎓 Your tribute will be added to the teacher's page automatically</p>
-        </div>
-      </div>
-    </div>
-  )
+        {/* Footer Tips */}
+        <Paper elevation={1} sx={{ mt: 3, p: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            💡 Dicas de Upload
+          </Typography>
+          <Divider sx={{ mb: 2 }} />
+          <Stack spacing={1}>
+            <Typography variant="body2">
+              • Mantenha seu vídeo abaixo de 30MB para uploads mais rápidos
+            </Typography>
+            <Typography variant="body2">
+              • Sua homenagem será adicionada à página do professor automaticamente
+            </Typography>
+            <Typography variant="body2">
+              • Formatos suportados: MP4, MOV, AVI e a maioria dos formatos de vídeo
+            </Typography>
+          </Stack>
+        </Paper>
+      </Container>
+    </Box>
+  );
 }
 
-export default UploadPage
+export default UploadPage;

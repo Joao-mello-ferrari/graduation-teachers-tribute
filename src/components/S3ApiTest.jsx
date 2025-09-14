@@ -1,124 +1,160 @@
-import { useState } from 'react'
-import { testS3Connection, getExpectedS3Structure } from '../services/s3Service'
+import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  Alert,
+  Collapse,
+  Stack,
+  Chip,
+  Divider,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import CloudIcon from '@mui/icons-material/Cloud';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { testS3Connection, getExpectedS3Structure } from '../services/s3Service';
+
+const FloatingCard = styled(Card)(({ theme }) => ({
+  position: 'fixed',
+  bottom: theme.spacing(3),
+  right: theme.spacing(3),
+  minWidth: 320,
+  maxWidth: 400,
+  zIndex: 1000,
+  backdropFilter: 'blur(16px)',
+  backgroundColor: theme.palette.mode === 'dark' 
+    ? 'rgba(30, 30, 30, 0.9)' 
+    : 'rgba(255, 255, 255, 0.9)',
+  border: `1px solid ${theme.palette.divider}`,
+}));
+
+const StructureBox = styled(Box)(({ theme }) => ({
+  fontFamily: 'monospace',
+  fontSize: '0.8rem',
+  backgroundColor: theme.palette.mode === 'dark' 
+    ? 'rgba(0, 0, 0, 0.3)' 
+    : 'rgba(0, 0, 0, 0.05)',
+  padding: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius,
+  marginTop: theme.spacing(1),
+}));
 
 function S3ApiTest() {
-  const [testResult, setTestResult] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [showStructure, setShowStructure] = useState(false)
+  const [testResult, setTestResult] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showStructure, setShowStructure] = useState(false);
 
   const handleTest = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const result = await testS3Connection()
-      setTestResult(result)
+      const result = await testS3Connection();
+      setTestResult(result);
     } catch (error) {
-      setTestResult({ success: false, message: error.message })
+      setTestResult({ success: false, message: error.message });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const toggleStructure = () => {
-    setShowStructure(!showStructure)
-  }
+    setShowStructure(!showStructure);
+  };
 
-  const s3Structure = getExpectedS3Structure()
+  const s3Structure = getExpectedS3Structure();
 
   return (
-    <div style={{ 
-      position: 'fixed', 
-      bottom: '20px', 
-      right: '20px', 
-      background: 'rgba(255,255,255,0.1)', 
-      padding: '1rem', 
-      borderRadius: '10px',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255,255,255,0.2)',
-      color: 'white',
-      fontSize: '0.9rem',
-      zIndex: 1000,
-      minWidth: '280px',
-      maxWidth: '400px'
-    }}>
-      <div style={{ marginBottom: '0.5rem', fontWeight: 'bold' }}>
-        AWS S3 Integration Test
-      </div>
-      
-      <button 
-        onClick={handleTest} 
-        disabled={isLoading}
-        style={{
-          background: 'rgba(255,255,255,0.2)',
-          color: 'white',
-          border: '1px solid rgba(255,255,255,0.3)',
-          padding: '0.5rem 1rem',
-          borderRadius: '5px',
-          cursor: isLoading ? 'not-allowed' : 'pointer',
-          marginBottom: '0.5rem',
-          width: '100%'
-        }}
-      >
-        {isLoading ? 'Testing S3...' : 'Test S3 Connection'}
-      </button>
+    <FloatingCard elevation={8}>
+      <CardContent>
+        <Stack spacing={2}>
+          {/* Header */}
+          <Box display="flex" alignItems="center" gap={1}>
+            <CloudIcon color="primary" />
+            <Typography variant="h6" component="div">
+              Teste AWS S3
+            </Typography>
+          </Box>
 
-      <button 
-        onClick={toggleStructure}
-        style={{
-          background: 'rgba(100,150,255,0.2)',
-          color: 'white',
-          border: '1px solid rgba(100,150,255,0.3)',
-          padding: '0.5rem 1rem',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          marginBottom: '0.5rem',
-          width: '100%',
-          fontSize: '0.8rem'
-        }}
-      >
-        {showStructure ? 'Hide' : 'Show'} Expected S3 Structure
-      </button>
-      
-      {testResult && (
-        <div style={{ 
-          marginTop: '0.5rem',
-          padding: '0.5rem',
-          borderRadius: '5px',
-          background: testResult.success ? 'rgba(0,255,0,0.1)' : 'rgba(255,0,0,0.1)',
-          border: `1px solid ${testResult.success ? 'rgba(0,255,0,0.3)' : 'rgba(255,0,0,0.3)'}`
-        }}>
-          <strong>{testResult.success ? '✅ Success' : '❌ Failed'}</strong>
-          <br />
-          <div style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>
-            {testResult.message}
-          </div>
-        </div>
-      )}
+          {/* Test Button */}
+          <Button
+            variant="contained"
+            onClick={handleTest}
+            disabled={isLoading}
+            startIcon={<CloudIcon />}
+            fullWidth
+          >
+            {isLoading ? 'Testando S3...' : 'Testar Conexão S3'}
+          </Button>
 
-      {showStructure && (
-        <div style={{ 
-          marginTop: '0.5rem',
-          padding: '0.5rem',
-          borderRadius: '5px',
-          background: 'rgba(100,150,255,0.1)',
-          border: '1px solid rgba(100,150,255,0.3)',
-          fontSize: '0.8rem'
-        }}>
-          <strong>Expected S3 Structure:</strong>
-          <br />
-          <div style={{ marginTop: '0.5rem', fontFamily: 'monospace' }}>
-            {s3Structure.structure.map((item, index) => (
-              <div key={index} style={{ marginBottom: '0.25rem' }}>
-                <div>{item.path}</div>
-                <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.7rem', marginLeft: '1rem' }}>
-                  └── {item.example.split('/').pop()}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
+          {/* Structure Toggle */}
+          <Button
+            variant="outlined"
+            onClick={toggleStructure}
+            endIcon={showStructure ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            fullWidth
+            size="small"
+          >
+            {showStructure ? 'Hide' : 'Show'} S3 Structure
+          </Button>
+
+          {/* Test Result */}
+          {testResult && (
+            <Alert 
+              severity={testResult.success ? 'success' : 'error'}
+              variant="filled"
+            >
+              <Typography variant="body2">
+                {testResult.message}
+              </Typography>
+            </Alert>
+          )}
+
+          {/* S3 Structure */}
+          <Collapse in={showStructure}>
+            <Box>
+              <Typography variant="subtitle2" gutterBottom>
+                Estrutura S3 Esperada:
+              </Typography>
+              <Divider sx={{ mb: 1 }} />
+              <StructureBox>
+                {s3Structure.structure.map((item, index) => (
+                  <Box key={index} sx={{ mb: 1 }}>
+                    <Typography variant="body2" component="div">
+                      {item.path}
+                    </Typography>
+                    <Typography 
+                      variant="caption" 
+                      component="div" 
+                      color="text.secondary"
+                      sx={{ ml: 2 }}
+                    >
+                      └── {item.example.split('/').pop()}
+                    </Typography>
+                  </Box>
+                ))}
+              </StructureBox>
+              <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                <Chip
+                  label="Development"
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                />
+                <Chip
+                  label="Testing"
+                  size="small"
+                  color="secondary"
+                  variant="outlined"
+                />
+              </Stack>
+            </Box>
+          </Collapse>
+        </Stack>
+      </CardContent>
+    </FloatingCard>
+  );
 }
 
-export default S3ApiTest
+export default S3ApiTest;
