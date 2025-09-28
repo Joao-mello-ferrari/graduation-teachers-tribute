@@ -49,14 +49,16 @@ function HomePage() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Homenagem C3
           </Typography>
-          <Button 
-            color="inherit" 
-            component={RouterLink} 
-            to="/upload"
-            sx={{ mr: 1 }}
-          >
-            Enviar Vídeo
-          </Button>
+          { import.meta.env.VITE_LIVE_MODE === 'false' && (
+            <Button 
+              color="inherit" 
+              component={RouterLink} 
+              to="/upload"
+              sx={{ mr: 1 }}
+            >
+              Enviar Vídeo
+            </Button>
+          )}
           <ThemeToggle />
         </Toolbar>
       </AppBar>

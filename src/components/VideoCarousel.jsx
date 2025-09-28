@@ -122,7 +122,7 @@ function VideoCarousel({ videos, teacherName }) {
         {/* Header */}
         <Box sx={{ mb: 3, textAlign: 'center' }}>
           <Typography variant="h4" component="h2" gutterBottom>
-            Mensagens dos Alunos para o Professor {teacherName}
+            Assista nossos vídeos de agradecimento!
           </Typography>
           <Stack direction="row" spacing={1} justifyContent="center" alignItems="center">
             <Chip
