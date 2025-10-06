@@ -90,9 +90,9 @@ function UploadPage() {
     }
     
     // Check file size (30MB limit)
-    const maxSize = 30 * 1024 * 1024; // 30MB in bytes
+    const maxSize = 200 * 1024 * 1024; // 30MB in bytes
     if (file.size > maxSize) {
-      setError('O arquivo é muito grande. O tamanho máximo permitido é 30MB');
+      setError('O arquivo é muito grande. O tamanho máximo permitido é 200MB (aproximadamente 2 minutos)');
       return;
     }
     
@@ -369,7 +369,7 @@ function UploadPage() {
               sx={{ mt: 3 }}
             >
               <Typography variant="h6" gutterBottom>
-                Upload Failed
+                Upload Falhou
               </Typography>
               <Typography variant="body1">{error}</Typography>
             </Alert>
@@ -384,7 +384,7 @@ function UploadPage() {
           <Divider sx={{ mb: 2 }} />
           <Stack spacing={1}>
             <Typography variant="body2">
-              • Mantenha seu vídeo abaixo de 30MB para uploads mais rápidos
+              • Mantenha seu vídeo abaixo de 200MB (aproximadamente 2 minutos) para uploads mais rápidos
             </Typography>
             <Typography variant="body2">
               • Sua homenagem será adicionada à página do professor automaticamente
