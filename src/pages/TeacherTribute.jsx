@@ -222,8 +222,13 @@ function TeacherTribute() {
     const loadVideos = async () => {
       try {
         setLoading(true);
-        const videoUrls = await fetchVideosFromS3(teacherName);
+        const normalizedTeacherName = teacherName
+          .normalize("NFD") // decompose accented characters into base + diacritic
+          .replace(/[\u0300-\u036f]/g, ""); // remove all diacritics
+
+        const videoUrls = await fetchVideosFromS3(normalizedTeacherName);
         setVideos(videoUrls);
+
       } catch (err) {
         setError(`Failed to load videos for ${teacherName}`);
         console.error('Error loading videos:', err);
