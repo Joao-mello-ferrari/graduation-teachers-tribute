@@ -76,6 +76,7 @@ function UploadPage() {
   const [uploadResult, setUploadResult] = useState(null);
   const [error, setError] = useState(null);
   const [dragOver, setDragOver] = useState(false);
+  const [sizePerc, setSizePerc] = useState(1);
   const fileInputRef = useRef(null);
 
   const handleFileSelect = (file) => {
@@ -90,14 +91,16 @@ function UploadPage() {
     }
     
     // Check file size (30MB limit)
-    const maxSize = 200 * 1024 * 1024; // 30MB in bytes
+    const maxSize = 300 * 1024 * 1024; // 30MB in bytes
     if (file.size > maxSize) {
-      setError('O arquivo é muito grande. O tamanho máximo permitido é 200MB (aproximadamente 2 minutos)');
+      setError('O arquivo é muito grande. O tamanho máximo permitido é 300MB (aproximadamente 3 minutos)');
+      setSizePerc(1);
       return;
     }
     
     setSelectedFile(file);
     setError(null);
+    setSizePerc(file.size / maxSize)
   };
 
     const handleFileInputChange = (event) => {
@@ -141,6 +144,7 @@ function UploadPage() {
     setError(null);
     setUploadResult(null);
 
+    const delay = 400 * sizePerc;
     try {
       // Simulate progress for better UX
       const progressInterval = setInterval(() => {
@@ -148,7 +152,7 @@ function UploadPage() {
           if (prev < 100) return prev + 1;
           return prev;
         });
-      }, 200);
+      }, delay);
 
       const result = await uploadVideoToS3(selectedFile, selectedTeacher);
       
@@ -384,7 +388,7 @@ function UploadPage() {
           <Divider sx={{ mb: 2 }} />
           <Stack spacing={1}>
             <Typography variant="body2">
-              • Mantenha seu vídeo abaixo de 200MB (aproximadamente 2 minutos) para uploads mais rápidos
+              • Mantenha seu vídeo abaixo de 300MB (aproximadamente 2 minutos) para uploads mais rápidos
             </Typography>
             <Typography variant="body2">
               • Sua homenagem será adicionada à página do professor automaticamente
