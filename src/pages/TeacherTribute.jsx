@@ -80,7 +80,7 @@ function InteractiveButtons() {
   };
 
   return (
-    <Box sx={{ position: 'relative', minHeight: '120px' }}>
+    <Box sx={{ position: 'relative', minHeight: '80px' }}>
       {/* Confetti Effect */}
       {showConfetti && (
         <Box
@@ -403,14 +403,13 @@ function TeacherTribute() {
               <Typography 
                 variant="body2" 
                 sx={{ 
-                  mt: 3,
                   color: 'text.secondary',
-                  fontSize: '0.875rem'
+                  fontSize: '1.2rem'
                 }}
               >
-                Se desejar entrar em contato, mande um e-mail para{' '}
+                <strong style={{ borderRadius: '4px', padding: '8px 12px', backgroundColor: '#34a482ff' }}>ATENÇÃO !!!</strong> Nos avise que recebeu o convite e tire dúvidas clicando neste {' '}
                 <Link 
-                  href="mailto:joao.vico.mellof@gmail.com"
+                  href="https://wa.me/5553997074859?text=Claro%20que%20eu%20aceito !!!"
                   sx={{ 
                     color: 'primary.main',
                     textDecoration: 'none',
@@ -419,10 +418,27 @@ function TeacherTribute() {
                     }
                   }}
                 >
-                  joao.vico.mellof@gmail.com
+                  WhatsApp !!!
                 </Link>
               </Typography>
             </Paper>
+
+            {/* Animated Down Arrow */}
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: -4 }}>
+                <Box
+                  sx={{
+                    animation: 'bounce 1.5s infinite',
+                    '@keyframes bounce': {
+                      '0%, 100%': { transform: 'translateY(0)' },
+                      '50%': { transform: 'translateY(12px)' }
+                    }
+                  }}
+                >
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 16L6 10H18L12 16Z" fill="#6b7280"/>
+                  </svg>
+                </Box>
+              </Box>
             
             {/* Video Carousel */}
             <VideoCarousel videos={videos} teacherName={capitalizedName} />

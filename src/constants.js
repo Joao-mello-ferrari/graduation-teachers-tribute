@@ -9,7 +9,10 @@ Foi incrível conhecer esse lado pouco explorado da computação — aplicaçõe
 
 Nossos sinceros agradecimentos ❤️
 
-Aceita ser nosso homenageado?`
+Aceita ser homenageado de ECOMP?
+
+* No dia 21/11 iremos fazer as nossas fotos no Camping do Senandes, você está convidado! Pode chegar a partir das 17h.
+`
   },
   cleo: {
     title: "Professor Cleo",
@@ -20,7 +23,10 @@ Além de excelente professor, te consideramos um grande amigo. Por isso, é com 
 
 Nossos sinceros agradecimentos ❤️
 
-Aceita ser nosso patrono?`
+Aceita ser o patrono de ECOMP?
+
+* No dia 21/11 iremos fazer as nossas fotos no Camping do Senandes, você está convidado! Pode chegar a partir das 17h.
+`
   },
   pedro: {
     title: "Professor Pedro",
@@ -35,7 +41,10 @@ Além de excelente professor, te consideramos um grande amigo. Por isso, é com 
 
 Nossos sinceros agradecimentos ❤️
 
-Aceita esse convite?`
+Aceita esse convite da turma de ECOMP?
+
+* No dia 21/11 iremos fazer as nossas fotos no Camping do Senandes, você está convidado! Pode chegar a partir das 17h.
+`
   },
   bicho: {
     title: "Professor Bicho",
@@ -48,7 +57,10 @@ Tivemos grandes projetos ao longo do caminho — o jogo com a Unity, os algoritm
 Só temos a agradecer pela parceria e pela amizade que construímos.
 Nossos sinceros agradecimentos ❤️
 
-Aceita ser nosso homenageado??`
+Aceita ser homenageado de ECOMP??
+
+* No dia 21/11 iremos fazer as nossas fotos no Camping do Senandes, você está convidado! Pode chegar a partir das 17h.
+`
   },
   vitor: {
     title: "Professor Vitor",
@@ -60,7 +72,10 @@ Queremos agradecer por todos os ensinamentos e pelo espaço que sempre tivemos p
 Só temos a agradecer pela parceria e pela amizade que construímos.
 Nossos sinceros agradecimentos ❤️
 
-Aceita ser nosso homenageado??`
+Aceita ser homenageado de ECOMP??
+
+* No dia 21/11 iremos fazer as nossas fotos no Camping do Senandes, você está convidado! Pode chegar a partir das 17h.
+`
   },
   berri: {
     title: "Professor Berri",
@@ -71,7 +86,10 @@ Foram momentos muito bons, nos divertimos muito ao teu lado, mesmo com os mosqui
 Só temos a agradecer pela parceria e pela amizade que construímos.
 Nossos sinceros agradecimentos ❤️
 
-Aceita ser nosso homenageado de ECOMP??`
+Aceita ser homenageado de ECOMP??
+
+* No dia 21/11 iremos fazer as nossas fotos no Camping do Senandes, você está convidado! Pode chegar a partir das 17h.
+`
   },
   andré: {
     title: "Professor André",
@@ -84,7 +102,10 @@ Projetar um sistema de companhias aéreas não foi nada fácil 😂 ,mas certame
 Só temos a agradecer pela parceria e pela amizade que construímos.
 Nossos sinceros agradecimentos ❤️
 
-Aceita ser nosso homenageado de ECOMP??`
+Aceita ser homenageado de ECOMP??
+
+* No dia 21/11 iremos fazer as nossas fotos no Camping do Senandes, você está convidado! Pode chegar a partir das 17h.
+`
   },
   schvittz: {
     title: "Professor Schvittz",
@@ -96,7 +117,10 @@ Nunca iremos esquecer dos contadores que fizemos, nem dos trabalhos com FPGA... 
 Só temos a agradecer pela parceria e pela amizade que construímos.
 Nossos sinceros agradecimentos ❤️
 
-Aceita ser nosso homenageado de ECOMP??`
+Aceita ser nosso homenageado de ECOMP??
+
+* No dia 21/11 iremos fazer as nossas fotos no Camping do Senandes, você está convidado! Pode chegar a partir das 17h.
+`
   }
 };
 
