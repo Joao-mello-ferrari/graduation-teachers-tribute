@@ -3,11 +3,10 @@ export const TEACHER_TRIBUTE_MESSAGES = {
   dalmazo: {
     title: "Professor Dalmazo",
     message: `O que dizer do professor que mais entende do mundo cripto?
-Só temos a agradecer pelas parcerias e pelos ensinamentos em sistemas distribuídos e tópicos.
 
-Foi incrível conhecer esse lado pouco explorado da computação — aplicações com blockchain e o universo cripto. A forma como nossa relação se desenvolveu nas aulas nos deixa muito felizes: sempre em um ambiente de troca leve e cheio de boas discussões.
+Foi incrível conhecer esse lado pouco explorado da computação através de alguém tão apaixonado pelo tema. Foi um prazer ter compartilhado contigo esse ambiente de troca, leve e cheio de boas discussões.
 
-Nossos sinceros agradecimentos ❤️
+Só temos a agradecer pela parceria que construímos e por todo o conhecimento que adquirimos ao longo dessa jornada ❤️
 
 Aceita ser homenageado de ECOMP?
 
@@ -17,11 +16,12 @@ Aceita ser homenageado de ECOMP?
   cleo: {
     title: "Professor Cleo",
     message: `O que dizer do professor que mais nos ajuda com as burocracias do C3?
-Só temos a agradecer pela parceria de sempre, pela agilidade e por solucionar tudo que precisamos de forma tão proativa.
 
-Além de excelente professor, te consideramos um grande amigo. Por isso, é com muita alegria que queremos te convidar para representar nossa turma como Patrono!
+Como coordenador e professor, tu sempre nos apoiou e solucionou tudo o que precisamos com prestatividade e carinho.
 
-Nossos sinceros agradecimentos ❤️
+Só temos a agradecer pela parceria que construímos e por todo o conhecimento que adquirimos ao longo dessa jornada ❤️
+
+Por isso, é com muita alegria que queremos te convidar para representar nossa turma como Patrono!
 
 Aceita ser o patrono de ECOMP?
 
@@ -33,13 +33,11 @@ Aceita ser o patrono de ECOMP?
     message: `O professor mais amigo dos alunos! Nunca esquecemos da frase:
 “Eu não vou fazer com vocês o que eu não gostava que faziam comigo quando eu era aluno.”
 
-Essa empatia foi fundamental para as aulas de Sistemas Operacionais e Redes. E que ano incrível foi aquele… desenvolver um gerenciador de processos, um sistema de arquivos, pesquisas de mudanças na infraestrutura da Internet com o RIPE Atlas — tudo guardado com muito carinho.
+Essa empatia foi fundamental para as aulas de Sistemas Operacionais e Redes. E que ano incrível foi aquele em que tivemos a oportunidade de ter aula contigo!
 
-Só temos a agradecer pela parceria e pela amizade que construímos.
+Só temos a agradecer pela parceria que construímos e por todo o conhecimento que adquirimos ao longo dessa jornada ❤️
 
-Além de excelente professor, te consideramos um grande amigo. Por isso, é com muita alegria que queremos te convidar para representar nossa turma como Paraninfo!
-
-Nossos sinceros agradecimentos ❤️
+Por isso, é com muita alegria que queremos te convidar para representar nossa turma como Paraninfo!
 
 Aceita esse convite da turma de ECOMP?
 
@@ -54,8 +52,7 @@ Queremos agradecer por todos os ensinamentos e pelo espaço que sempre tivemos p
 
 Tivemos grandes projetos ao longo do caminho — o jogo com a Unity, os algoritmos de simulação de multidões… e em cada um deles aprendemos demais!
 
-Só temos a agradecer pela parceria e pela amizade que construímos.
-Nossos sinceros agradecimentos ❤️
+Só temos a agradecer pela parceria que construímos e por todo o conhecimento que adquirimos ao longo dessa jornada ❤️
 
 Aceita ser homenageado de ECOMP??
 
@@ -64,13 +61,11 @@ Aceita ser homenageado de ECOMP??
   },
   vitor: {
     title: "Professor Vitor",
-    message: `Vitor, tu és um dos maiores gênios que já conhecemos.
-Nas aulas de Circuitos Elétricos e de Tópicos ficou evidente o quanto tu és empolgado com a matéria — e, principalmente, em transmitir esse entusiasmo para nós. Esperamos que tu sinta nossa gratidão.
+    message: `Vitor, tu és aquele tipo de professor fora da curva, que inspira com a tua inteligência e humildade.
+    
+É evidente o quanto tu te dedica e o quanto gosta do que ensina. Esse entusiasmo é contagiante e chega até nós. 
 
-Queremos agradecer por todos os ensinamentos e pelo espaço que sempre tivemos para trocar conhecimento. A aula de Tópicos em Controle foi um espetáculo, e o projeto final foi uma experiência incrível!
-
-Só temos a agradecer pela parceria e pela amizade que construímos.
-Nossos sinceros agradecimentos ❤️
+Só temos a agradecer pela parceria que construímos e por todo o conhecimento que adquirimos ao longo dessa jornada ❤️
 
 Aceita ser homenageado de ECOMP??
 
@@ -79,12 +74,9 @@ Aceita ser homenageado de ECOMP??
   },
   berri: {
     title: "Professor Berri",
-    message: `Berri, queremos agradecer por todo o empenho e trocas que tivemos nas disciplinas de Linguagens de programação e em tópicos.
+    message: `Berri, apesar dos mosquitos do C3 nas aulas que iam até as 18:50, nos divertimos e aprendemos muito contigo 😂
 
-Foram momentos muito bons, nos divertimos muito ao teu lado, mesmo com os mosquitos do C3 nas aulas que iam até as 18:50 😂
-
-Só temos a agradecer pela parceria e pela amizade que construímos.
-Nossos sinceros agradecimentos ❤️
+Só temos a agradecer pela parceria que construímos e por todo o conhecimento que adquirimos ao longo dessa jornada ❤️
 
 Aceita ser homenageado de ECOMP??
 
@@ -93,14 +85,11 @@ Aceita ser homenageado de ECOMP??
   },
   andré: {
     title: "Professor André",
-    message: `André, tu foste o único professor que tocou violão em sala!
+    message: `André, o tal professor que toca violão pros alunos!
 
-Foram momentos muito bons que tivemos na disciplina de PDS. 
-Com um clima sempre leve, nos divertimos muito ao teu lado.
-Projetar um sistema de companhias aéreas não foi nada fácil 😂 ,mas certamente trouxe muito aprendizado.
+Foram momentos muito bons que tivemos na disciplina de PDS. Com um clima sempre leve, nos divertimos muito ao teu lado e aprendemos muito com a tua experiência.
 
-Só temos a agradecer pela parceria e pela amizade que construímos.
-Nossos sinceros agradecimentos ❤️
+Só temos a agradecer pela parceria que construímos e por todo o conhecimento que adquirimos ao longo dessa jornada ❤️
 
 Aceita ser homenageado de ECOMP??
 
@@ -109,13 +98,11 @@ Aceita ser homenageado de ECOMP??
   },
   schvittz: {
     title: "Professor Schvittz",
-    message: `Schivittz, queremos te agradecemos por ser o professor que trouxe a disciplina de Hardware para a turma.
-Mexer com componentes de circuito foi algo desafiador, mas a tua parceiria e empenho deixaram o processo muito mais tranquilo, e aprendemos demais contigo.
+    message: `Schivittz, guardaremos pra sempre na memória o nervosismo de não funcionar o circuito, de escapar um jumper, de as coisas não funcionarem mesmo quando elas deviam estar funcionando 🥶
+    
+Tivemos muitos desafios, mas a tua parceiria e empenho deixaram o processo muito mais tranquilo, e aprendemos demais contigo.
 
-Nunca iremos esquecer dos contadores que fizemos, nem dos trabalhos com FPGA... Do nervosismo de não funcionar o circuito, de escapar um jumper 🥶
-
-Só temos a agradecer pela parceria e pela amizade que construímos.
-Nossos sinceros agradecimentos ❤️
+Só temos a agradecer pela parceria que construímos e por todo o conhecimento que adquirimos ao longo dessa jornada ❤️
 
 Aceita ser nosso homenageado de ECOMP??
 
