@@ -407,7 +407,7 @@ function TeacherTribute() {
                   fontSize: '1.2rem'
                 }}
               >
-                <strong style={{ borderRadius: '4px', padding: '8px 12px', backgroundColor: '#34a482ff' }}>ATENÇÃO !!!</strong> Nos avise que recebeu o convite e tire dúvidas clicando neste {' '}
+                <strong style={{ borderRadius: '4px', padding: '8px', backgroundColor: '#34a482ff', marginBottom: '6px', display: 'inline-block' }}>ATENÇÃO !!!</strong><br /> Nos avise que recebeu o convite e tire dúvidas clicando neste {' '}
                 <Link 
                   href="https://wa.me/5553997074859?text=Claro%20que%20eu%20aceito !!!"
                   sx={{ 
