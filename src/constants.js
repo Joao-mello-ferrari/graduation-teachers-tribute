@@ -46,11 +46,9 @@ Aceita esse convite da turma de ECOMP?
   },
   bicho: {
     title: "Professor Bicho",
-    message: `O professor mais tranquilo do C3… mas que soube “tirar nosso couro” quando precisou 😂
-
-Queremos agradecer por todos os ensinamentos e pelo espaço que sempre tivemos para trocar conhecimento — de ti para nós e de nós para ti. Foi um sentimento real de que aprendemos juntos.
-
-Tivemos grandes projetos ao longo do caminho — o jogo com a Unity, os algoritmos de simulação de multidões… e em cada um deles aprendemos demais!
+    message: `Como poderíamos deixar de homenagear um professor tão querido?
+  
+Sempre vais ficar marcado por todas as histórias, todas as risadas e por todas as atividades que tivemos juntos.
 
 Só temos a agradecer pela parceria que construímos e por todo o conhecimento que adquirimos ao longo dessa jornada ❤️
 
