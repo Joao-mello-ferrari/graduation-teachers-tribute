@@ -83,7 +83,7 @@ Aceita ser homenageado de ECOMP??
 * No dia 21/11 iremos fazer as nossas fotos no Camping do Senandes, você está convidado! Pode chegar a partir das 17h.
 `
   },
-  andré: {
+  andre: {
     title: "Professor André",
     message: `André, o tal professor que toca violão pros alunos!
 
